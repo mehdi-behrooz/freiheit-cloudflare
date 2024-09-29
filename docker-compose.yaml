@@ -1,0 +1,20 @@
+services:
+  cloudflare:
+    build: .
+    container_name: cloudflare
+    restart: unless-stopped
+    environment:
+      - CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL
+      - CLOUDFLARE_KEY=$CLOUDFLARE_KEY
+      - ZONE=${CLOUDFLARE_TEST_DOMAIN}
+      - RECORDS_IPV4_DIRECT=ip4, four
+      - RECORDS_IPV4_PROXY=@, www, panel
+      - RECORDS_IPV6_DIRECT=ip6, six
+      - RECORDS_IPV6_PROXY=proxy656
+      - ALWAYS_USE_HTTPS=false
+      - MINIMUM_TLS_VERSION=1.3
+      - SSL_MODE=auto
+      - WORKER_NAME=test_worker
+      - WORKER_SUBDOMAIN=google.com/test3
+      - PERIOD_IN_SECONDS=60
+      - IPV6_OVERRIDE=2602:ffb6:4:538d:1111:2222:3333:4444
