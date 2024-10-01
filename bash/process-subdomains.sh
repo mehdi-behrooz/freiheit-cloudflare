@@ -3,7 +3,7 @@
 source "cloudflare-sdk.sh"
 
 read_records() {
-    IFS=', ' read -r -a subdomains <<<"$1"
+    IFS=' ' read -r -a subdomains <<<"${1//,/ }"
     for subdomain in "${subdomains[@]}"; do
         [[ "$subdomain" == "@" ]] && name="$ZONE" || name="$subdomain.$ZONE"
         records+=("$name $2 $3 $4")

@@ -7,7 +7,7 @@ services:
       - CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL
       - CLOUDFLARE_KEY=$CLOUDFLARE_KEY
       - ZONE=${CLOUDFLARE_TEST_DOMAIN}
-      - RECORDS_IPV4_DIRECT=ip4, four
+      - RECORDS_IPV4_DIRECT=ip4, four, a, b c d, e, , f
       - RECORDS_IPV4_PROXY=@, www, panel
       - RECORDS_IPV6_DIRECT=ip6, six
       - RECORDS_IPV6_PROXY=proxy656
