@@ -32,8 +32,6 @@ ENV WORKER_TEMPLATE=/home/cf/worker/script.js.tmpl
 USER cf
 WORKDIR /home/cf/
 
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
 HEALTHCHECK --interval=30s \
