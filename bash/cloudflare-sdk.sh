@@ -46,9 +46,10 @@ put() {
     http PUT "${@}"
 }
 
-get_zone_id() {
+get_zone() {
     url="/zones?name=$1"
-    get "$ENDPOINT/$url" | results | jq -r '.[0].id // empty'
+    get "$ENDPOINT/$url" | results | jq -r '.[0] // empty'
+
 }
 
 get_zone_setting() {
@@ -85,11 +86,6 @@ create_dns_record() {
 delete_dns_record() {
     url="/zones/$1/dns_records/$2"
     delete "$ENDPOINT/$url" | results
-}
-
-get_account_id() {
-    url="/zones?name=$1"
-    get "$ENDPOINT/$url" | results | jq -r ".[0]? .account?.id?"
 }
 
 get_worker_script() {
