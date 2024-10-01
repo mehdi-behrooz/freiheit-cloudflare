@@ -2,18 +2,21 @@
 
 source "cloudflare-sdk.sh"
 
-zone_id="$(get_zone_id "$ZONE")"
-error=0
+z="$(get_zone "$ZONE")"
 
-if [[ -n "$zone_id" ]]; then
-    /usr/bin/process-zone-settings.sh "$zone_id" || error=1
-    /usr/bin/process-subdomains.sh "$zone_id" || error=1
-else
+if [[ -z "$z" ]]; then
     echo "Unable to get zone with name $ZONE"
-    error=1
+    exit 1
 fi
 
-/usr/bin/process-worker.sh || error=1
+query='[.id, .status, .account.id, .name_servers[]] | @tsv'
+read -r -a args < <(jq -r "$query" <<<"$z")
 
-echo "$error" >"$OUTPUT_FILE"
+error=0
+
+/usr/bin/process-zone-status.sh "${args[@]}" || error=1
+/usr/bin/process-zone-settings.sh "${args[@]}" || error=1
+/usr/bin/process-subdomains.sh "${args[@]}" || error=1
+/usr/bin/process-worker.sh "${args[@]}" || error=1
+
 exit "$error"

@@ -11,7 +11,7 @@ if [[ -z "$WORKER_SUBDOMAIN" ]]; then
     exit 1
 fi
 
-account_id="$(get_account_id "$ZONE")"
+account_id="$3"
 current_script="$(get_worker_script "$account_id" "$WORKER_NAME")"
 correct_script="$(envsubst <"$WORKER_TEMPLATE")"
 error=0
