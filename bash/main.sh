@@ -34,4 +34,10 @@ error=0
 /usr/bin/process-subdomains.sh "${args[@]}" || error=1
 /usr/bin/process-worker.sh "${args[@]}" || error=1
 
+if [[ "$error" == "0" ]]; then
+    echo "Everything is OK."
+else
+    echo "Something went wrong."
+fi
+
 exit "$error"

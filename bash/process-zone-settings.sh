@@ -24,7 +24,10 @@ fi
 
 error=0
 
-for key in "${!settings[@]}"; do
+readarray -t sorted \
+    < <(for a in "${!settings[@]}"; do echo "$a"; done | sort)
+
+for key in "${sorted[@]}"; do
 
     expected_value="${settings[$key]}"
 
