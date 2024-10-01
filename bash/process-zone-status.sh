@@ -9,4 +9,3 @@ if [[ "$status" != "active" ]]; then
         "Make sure that you have set your host DNS to $ns1 and $ns2"
     exit 1
 fi
-
