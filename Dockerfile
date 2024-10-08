@@ -34,9 +34,9 @@ WORKDIR /home/cf/
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
-HEALTHCHECK --interval=30s \
-    --start-interval=30s \
-    --start-period=30s \
+HEALTHCHECK --interval=5m \
+    --start-period=5m \
+    --start-interval=10s \
     CMD pgrep supervisord \
         && [[ "$(cat $OUTPUT_FILE)" == "0" ]] \
         && exit 0 \
